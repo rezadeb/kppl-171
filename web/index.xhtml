@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>This is shit</title>
+    </h:head>
+    <h:body>
+        <center><h1>Tree Table</h1> <br /></center>
+        <h:form id="form">
+            <p:treeTable value="#{ttBasicView.root}" var="document">
+                <f:facet name="header">
+                    Document Viewer
+                </f:facet>
+                <p:column headerText="Name">
+                    <h:outputText value="#{document.name}" />
+                </p:column>
+                <p:column headerText="Size">
+                    <h:outputText value="#{document.size}" />
+                </p:column>
+                <p:column headerText="Type">
+                    <h:outputText value="#{document.type}" />
+                </p:column>
+                <p:column style="width:24px">
+                    <p:commandLink update=":form:documentPanel" oncomplete="PF('documentDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
+                        <f:setPropertyActionListener value="#{document}" target="#{ttBasicView.selectedDocument}" />
+                    </p:commandLink>
+                </p:column>
+            </p:treeTable>
+
+            <p:dialog id="dialog" header="Document Detail" showEffect="fade" widgetVar="documentDialog" modal="true" resizable="false">
+                <p:outputPanel id="documentPanel">
+                    <p:panelGrid  columns="2" columnClasses="label,value" rendered="#{not empty ttBasicView.selectedDocument}">
+                        <h:outputLabel for="name" value="Name: " />
+                        <h:outputText id="name" value="#{ttBasicView.selectedDocument.name}" style="font-weight:bold" />
+
+                        <h:outputLabel for="size" value="Size: " />
+                        <h:outputText id="size" value="#{ttBasicView.selectedDocument.size}" style="font-weight:bold" />
+
+                        <h:outputLabel for="type" value="Type " />
+                        <h:outputText id="type" value="#{ttBasicView.selectedDocument.type}" style="font-weight:bold" />
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form><br /><br />
+
+        <center><h1>Horizontal Tree</h1> <br /></center>
+        <h:form>
+            <h3 style="margin-top:0">Client</h3>
+            <p:tree value="#{treeBasicView.root}" var="node" orientation="horizontal">
+                <p:treeNode>
+                    <h:outputText value="#{node}" /><br/>
+                </p:treeNode>
+            </p:tree>
+
+            <h3>Ajax</h3>
+            <p:tree value="#{treeBasicView.root}" var="node" dynamic="true" orientation="horizontal">
+                <p:treeNode>
+                    <h:outputText value="#{node}" />
+                </p:treeNode>
+            </p:tree>
+        </h:form><br /><br />
+
+        <center><h1>Accordion</h1> <br /></center>
+    <h3 style="margin-top:0">Basic</h3>
+    <p:accordionPanel>
+        <p:tab title="Godfather Part I">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText
+                    value="The story begins as Don Vito Corleone..." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Godfather Part II">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="Francis Ford Coppola's legendary..." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Godfather Part III">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="After a break of more than 15 years..." />
+            </h:panelGrid>
+        </p:tab>
+    </p:accordionPanel>
+ 
+    <h3>Multiple Selection</h3>
+    <p:accordionPanel multiple="true">
+        <p:tab title="Godfather Part I">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText
+                    value="The story begins as Don Vito Corleone..." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Godfather Part II">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="Francis Ford Coppola's legendary..." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Godfather Part III">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:graphicImage name="demo/images/godfather/godfather3.jpg" />
+                <h:outputText value="After a break of more than 15 years...." />
+            </h:panelGrid>
+        </p:tab>
+    </p:accordionPanel><br /><br />
+
+        <center><h1>Dashboard</h1> <br /></center>
+        <div style="height:500px">
+            <h:form>
+                <p:growl id="msgs" showDetail="true" />
+
+                <p:dashboard id="board" model="#{dashboardView.model}">
+                    <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs" />
+
+                    <p:panel id="sports" header="Sports">
+                        <h:outputText value="Sports Content" />
+                    </p:panel>
+
+                    <p:panel id="finance" header="Finance">
+                        <h:outputText value="Finance Content" />
+                    </p:panel>
+
+                    <p:panel id="lifestyle" header="Lifestyle">
+                        <h:outputText value="Lifestyle Content"  />
+                    </p:panel>
+
+                    <p:panel id="weather" header="Weather">
+                        <h:outputText value="Weather Content" />
+                    </p:panel>
+
+                    <p:panel id="politics" header="Politics">
+                        <h:outputText value="Politics Content" />
+                    </p:panel>
+                </p:dashboard>
+
+                <div style="clear:both" />
+            </h:form>
+        </div>
+
+        <center><h1>Fieldset</h1> <br /></center>
+        <h:form>
+            <p:growl id="msgs" showDetail="true" />
+
+            <p:fieldset legend="Basic" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText
+                        value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+                        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
+                        but given to ruthless violence whenever anything stands against the good of the family." />
+                </h:panelGrid>
+            </p:fieldset>
+
+            <p:fieldset legend="Toggleable" toggleable="true" toggleSpeed="500">
+                <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}" update="msgs" />
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.
+                                  In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
+                                  killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows."></h:outputText>
+                </h:panelGrid>
+            </p:fieldset>
+        </h:form>
+    </h:body>
+</html>
+
