@@ -1,0 +1,52 @@
+<html>
+<head>
+  <title>Login Mahasiswa</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel='stylesheet prefetch' href='css/animate.min.css'>
+    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,400italic,700italic,700'>
+    <link rel='stylesheet prefetch' href='css/font-awesome.min.css'>
+    <link rel="stylesheet" href="css/style.css">
+    <script src='js/jquery.js'></script>
+    <script type = "text/javascript">
+    function check() {
+        var user = document.coba.nrp.value;
+        var pass = document.coba.pass.value;
+        var valid = false;
+
+        var userArr = ["mahasiswa"];
+        var passArr = ["12345"];
+
+        for (var i=0; i <userArr.length; i++) {
+            if ((user == userArr[i]) && (pass == passArr[i])) {
+            valid = true;
+            break;
+            }
+        }
+
+        if (valid) {
+            alert ("Selamat datang "+userArr);
+            document.location='form.html';
+        return false;
+        }
+            else {
+                 alert("NRP atau Password Anda salah")
+            }
+    }
+</script>
+</head>
+<body>
+<div class='form animated fadeInUp'>
+  <div class='login'>
+    <h2>Login Mahasiswa</h2>
+    <form method="post" action="login.php" name= "loginpage" >
+      <input style="color: #666666" placeholder='Username' type='text' name="nrp" id="username">
+      <input style="color: #666666" placeholder='Password' type='password' name="pass" id="password">
+      <input type='button' class="button" value="Sign In" name= "login">
+    </form>
+  </div>
+  <p id="footer">
+      &copy; Jurusan Sistem Informasi<br/>Fakultas Teknologi Informasi<br/>2015
+  </p>
+</div>
+</body>
+</html>
